@@ -1,0 +1,56 @@
+# Абстрактний клас Відвідувача
+class Visitor:
+    def visit_concrete_element_a(self, element_a):
+        pass
+
+    def visit_concrete_element_b(self, element_b):
+        pass
+
+# Конкретні класи Відвідувачів
+class ConcreteVisitor1(Visitor):
+    def visit_concrete_element_a(self, element_a):
+        print(f"Відвідувач 1 відвідав {element_a.get_name()}")
+
+    def visit_concrete_element_b(self, element_b):
+        print(f"Відвідувач 1 відвідав {element_b.get_name()}")
+
+class ConcreteVisitor2(Visitor):
+    def visit_concrete_element_a(self, element_a):
+        print(f"Відвідувач 2 відвідав {element_a.get_name()}")
+
+    def visit_concrete_element_b(self, element_b):
+        print(f"Відвідувач 2 відвідав {element_b.get_name()}")
+
+# Абстрактний клас Об'єкту
+class Element:
+    def accept(self, visitor):
+        pass
+
+# Конкретні класи Об'єктів
+class ConcreteElementA(Element):
+    def accept(self, visitor):
+        visitor.visit_concrete_element_a(self)
+
+    def get_name(self):
+        return "Об'єкт A"
+
+class ConcreteElementB(Element):
+    def accept(self, visitor):
+        visitor.visit_concrete_element_b(self)
+
+    def get_name(self):
+        return "Об'єкт B"
+
+
+if __name__ == '__main__':
+    element_a = ConcreteElementA()
+    element_b = ConcreteElementB()
+
+    visitor1 = ConcreteVisitor1()
+    visitor2 = ConcreteVisitor2()
+
+    element_a.accept(visitor1)
+    element_b.accept(visitor1)
+
+    element_a.accept(visitor2)
+    element_b.accept(visitor2)
