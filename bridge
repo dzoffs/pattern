@@ -1,0 +1,49 @@
+# Абстракція
+class Shape:
+    def __init__(self, drawing_api):
+        self.drawing_api = drawing_api
+
+    def draw(self):
+        pass
+
+# Конкретна абстракція - коло
+class Circle(Shape):
+    def draw(self):
+        return self.drawing_api.draw_circle()
+
+# Конкретна абстракція - квадрат
+class Square(Shape):
+    def draw(self):
+        return self.drawing_api.draw_square()
+
+# Реалізація
+class DrawingAPI:
+    def draw_circle(self):
+        pass
+
+    def draw_square(self):
+        pass
+
+# Конкретна реалізація - відмалювання для графічного інтерфейсу
+class GraphicsAPI(DrawingAPI):
+    def draw_circle(self):
+        return "Малюю коло для графічного інтерфейсу"
+
+    def draw_square(self):
+        return "Малюю квадрат для графічного інтерфейсу"
+
+# Конкретна реалізація - відмалювання для векторного інтерфейсу
+class VectorAPI(DrawingAPI):
+    def draw_circle(self):
+        return "Малюю коло для векторного інтерфейсу"
+
+    def draw_square(self):
+        return "Малюю квадрат для векторного інтерфейсу"
+
+
+if __name__ == '__main__':
+    graphic_circle = Circle(GraphicsAPI())
+    vector_square = Square(VectorAPI())
+
+    print(graphic_circle.draw())
+    print(vector_square.draw())
