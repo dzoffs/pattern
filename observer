@@ -1,0 +1,43 @@
+# Абстрактний клас Спостерігача
+class Observer:
+    def update(self, message):
+        pass
+
+# Конкретний клас Спостерігача
+class ConcreteObserver(Observer):
+    def __init__(self, name):
+        self._name = name
+
+    def update(self, message):
+        print(f"{self._name} отримав повідомлення: {message}")
+
+# Клас Суб'єкта (об'єкт, над станом якого спостерігають)
+class Subject:
+    def __init__(self):
+        self._observers = []
+
+    def attach(self, observer):
+        self._observers.append(observer)
+
+    def detach(self, observer):
+        self._observers.remove(observer)
+
+    def notify(self, message):
+        for observer in self._observers:
+            observer.update(message)
+
+    def some_business_logic(self):
+        message = "Змінили стан об'єкта"
+        self.notify(message)
+
+
+if __name__ == '__main__':
+    subject = Subject()
+
+    observer1 = ConcreteObserver("Спостерігач 1")
+    observer2 = ConcreteObserver("Спостерігач 2")
+
+    subject.attach(observer1)
+    subject.attach(observer2)
+
+    subject.some_business_logic()
