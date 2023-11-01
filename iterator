@@ -1,0 +1,38 @@
+# Клас ітератора
+class Iterator:
+    def __init__(self, collection):
+        self._collection = collection
+        self._index = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self._index < len(self._collection):
+            value = self._collection[self._index]
+            self._index += 1
+            return value
+        else:
+            raise StopIteration()
+
+# Клас колекції
+class Collection:
+    def __init__(self):
+        self._data = []
+
+    def add_item(self, item):
+        self._data.append(item)
+
+    def create_iterator(self):
+        return Iterator(self._data)
+
+
+if __name__ == '__main__':
+    collection = Collection()
+    collection.add_item("Елемент 1")
+    collection.add_item("Елемент 2")
+    collection.add_item("Елемент 3")
+
+    iterator = collection.create_iterator()
+    for item in iterator:
+        print(item)
