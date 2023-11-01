@@ -1,0 +1,71 @@
+# Абстрактна фабрика для створення кнопок та текстових полів
+class GUIFactory:
+    def create_button(self):
+        pass
+
+    def create_text_field(self):
+        pass
+
+# Конкретна фабрика для створення кнопок та текстових полів для веб-інтерфейсу
+class WebGUIFactory(GUIFactory):
+    def create_button(self):
+        return WebButton()
+
+    def create_text_field(self):
+        return WebTextField()
+
+# Конкретна фабрика для створення кнопок та текстових полів для десктоп-інтерфейсу
+class DesktopGUIFactory(GUIFactory):
+    def create_button(self):
+        return DesktopButton()
+
+    def create_text_field(self):
+        return DesktopTextField()
+
+# Абстрактний клас для кнопок
+class Button:
+    def click(self):
+        pass
+
+# Абстрактний клас для текстових полів
+class TextField:
+    def input_text(self, text):
+        pass
+
+# Конкретний клас кнопки для веб-інтерфейсу
+class WebButton(Button):
+    def click(self):
+        return "Веб-кнопка була натиснута"
+
+# Конкретний клас текстового поля для веб-інтерфейсу
+class WebTextField(TextField):
+    def input_text(self, text):
+        return f"Веб-текстове поле отримало текст: '{text}'"
+
+# Конкретний клас кнопки для десктоп-інтерфейсу
+class DesktopButton(Button):
+    def click(self):
+        return "Десктоп-кнопка була натиснута"
+
+# Конкретний клас текстового поля для десктоп-інтерфейсу
+class DesktopTextField(TextField):
+    def input_text(self, text):
+        return f"Десктоп-текстове поле отримало текст: '{text}'"
+
+\
+def create_gui(factory):
+    button = factory.create_button()
+    text_field = factory.create_text_field()
+    return button, text_field
+
+if __name__ == '__main__':
+    web_gui_factory = WebGUIFactory()
+    desktop_gui_factory = DesktopGUIFactory()
+
+    web_button, web_text_field = create_gui(web_gui_factory)
+    print(web_button.click())
+    print(web_text_field.input_text("Привіт, веб-світ!"))
+
+    desktop_button, desktop_text_field = create_gui(desktop_gui_factory)
+    print(desktop_button.click())
+    print(desktop_text_field.input_text("Привіт, десктоп-світ!"))
