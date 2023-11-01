@@ -1,0 +1,64 @@
+# Об'єкт, стан якого потрібно зберегти
+class Originator:
+    def __init__(self):
+        self._state = None
+
+    def set_state(self, state):
+        print(f"Встановлюємо стан на: {state}")
+        self._state = state
+
+    def save_to_memento(self):
+        print("Зберігаємо стан у знімку")
+        return Memento(self._state)
+
+    def restore_from_memento(self, memento):
+        self._state = memento.get_state()
+        print(f"Відновлено стан зі знімку: {self._state}")
+
+# Знімок, який зберігає стан
+class Memento:
+    def __init__(self, state):
+        self._state = state
+
+    def get_state(self):
+        return self._state
+
+# Смотритель, який зберігає знімки стану
+class Caretaker:
+    def __init__(self):
+        self._mementos = []
+
+    def add_memento(self, memento):
+        self._mementos.append(memento)
+
+    def get_memento(self, index):
+        return self._mementos[index]
+
+if __name__ == '__main__':
+    # Створюємо об'єкт Originator і встановлюємо його стан
+    originator = Originator()
+    originator.set_state("Стан 1")
+
+    # Створюємо об'єкт Caretaker для збереження знімків
+    caretaker = Caretaker()
+
+    # Зберігаємо перший знімок
+    memento1 = originator.save_to_memento()
+    caretaker.add_memento(memento1)
+
+    # Змінюємо стан
+    originator.set_state("Стан 2")
+
+    # Зберігаємо другий знімок
+    memento2 = originator.save_to_memento()
+    caretaker.add_memento(memento2)
+
+    # Відновлюємо перший знімок
+    first_memento = caretaker.get_memento(0)
+    originator.restore_from_memento(first_memento)
+    print(f"Повернуто до стану: {originator._state}")
+
+    # Відновлюємо другий знімок
+    second_memento = caretaker.get_memento(1)
+    originator.restore_from_memento(second_memento)
+    print(f"Повернуто до стану: {originator._state}")
