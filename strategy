@@ -1,0 +1,32 @@
+# Абстрактний клас стратегії
+class Strategy:
+    def execute(self):
+        pass
+
+# Конкретні стратегії
+class ConcreteStrategyA(Strategy):
+    def execute(self):
+        print("Виконується стратегія A")
+
+class ConcreteStrategyB(Strategy):
+    def execute(self):
+        print("Виконується стратегія B")
+
+# Контекст, який використовує стратегію
+class Context:
+    def __init__(self, strategy):
+        self._strategy = strategy
+
+    def execute_strategy(self):
+        self._strategy.execute()
+
+
+if __name__ == '__main__':
+    strategy_a = ConcreteStrategyA()
+    strategy_b = ConcreteStrategyB()
+
+    context = Context(strategy_a)
+    context.execute_strategy()
+
+    context = Context(strategy_b)
+    context.execute_strategy()
