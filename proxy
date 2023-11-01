@@ -1,0 +1,35 @@
+# Спільний інтерфейс
+class Subject:
+    def request(self):
+        pass
+
+# Реальний об'єкт
+class RealSubject(Subject):
+    def request(self):
+        return "Реальний об'єкт: виконано запит"
+
+# Замісник
+class Proxy(Subject):
+    def __init__(self):
+        self._real_subject = None
+
+    def request(self):
+        if self._real_subject is None:
+            self._real_subject = RealSubject()
+        result = "Замісник: передача запиту реальному об'єкту\n"
+        result += self._real_subject.request()
+        return result
+
+
+def client_code(subject):
+    result = subject.request()
+    print(result)
+
+if __name__ == '__main__':
+    print("Клієнт: Взаємодія з реальним об'єктом:")
+    real_subject = RealSubject()
+    client_code(real_subject)
+
+    print("\nКлієнт: Взаємодія зі замісником:")
+    proxy = Proxy()
+    client_code(proxy)
