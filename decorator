@@ -1,0 +1,39 @@
+# Клас, який представляє базовий об'єкт, який можна декорувати
+class Component:
+    def operation(self):
+        pass
+
+# Конкретний клас, який будемо декорувати
+class ConcreteComponent(Component):
+    def operation(self):
+        return "Конкретний компонент"
+
+# Абстрактний клас для декоратора
+class Decorator(Component):
+    def __init__(self, component):
+        self._component = component
+
+    def operation(self):
+        return self._component.operation()
+
+# Конкретний декоратор
+class ConcreteDecoratorA(Decorator):
+    def operation(self):
+        return f"Декоратор A, який розширює {self._component.operation()}"
+
+# Конкретний декоратор
+class ConcreteDecoratorB(Decorator):
+    def operation(self):
+        return f"Декоратор B, який змінює {self._component.operation()}"
+
+
+if __name__ == '__main__':
+    component = ConcreteComponent()
+    decorator_a = ConcreteDecoratorA(component)
+    decorator_b = ConcreteDecoratorB(component)
+
+    result_a = decorator_a.operation()
+    result_b = decorator_b.operation()
+
+    print(result_a)
+    print(result_b)
