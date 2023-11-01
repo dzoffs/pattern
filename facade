@@ -1,0 +1,35 @@
+# Підсистема №1
+class Subsystem1:
+    def operation1(self):
+        return "Підсистема №1: виконано операцію 1"
+
+    def operation2(self):
+        return "Підсистема №1: виконано операцію 2"
+
+# Підсистема №2
+class Subsystem2:
+    def operation1(self):
+        return "Підсистема №2: виконано операцію 1"
+
+    def operation2(self):
+        return "Підсистема №2: виконано операцію 2"
+
+# Фасад
+class Facade:
+    def __init__(self):
+        self._subsystem1 = Subsystem1()
+        self._subsystem2 = Subsystem2()
+
+    def operation(self):
+        result = "Фасад почав роботу:\n"
+        result += self._subsystem1.operation1() + "\n"
+        result += self._subsystem1.operation2() + "\n"
+        result += self._subsystem2.operation1() + "\n"
+        result += self._subsystem2.operation2() + "\n"
+        return result
+
+
+if __name__ == '__main__':
+    facade = Facade()
+    result = facade.operation()
+    print(result)
