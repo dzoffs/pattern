@@ -1,0 +1,35 @@
+from enum import Enum
+
+# Типи автомобілів
+class CarType(Enum):
+    SEDAN = 1
+    SUV = 2
+    SPORTS_CAR = 3
+
+# Клас легковаговика (важкі дані, які не змінюються)
+class Flyweight:
+    def __init__(self, shared_data):
+        self._shared_data = shared_data
+
+    def operation(self, unique_data):
+        return f"Легковаговик: Важкі дані - {self._shared_data}, Унікальні дані - {unique_data}"
+
+# Фабрика для створення легковаговиків
+class FlyweightFactory:
+    _flyweights = {}
+
+    def get_flyweight(self, shared_data):
+        if shared_data not in self._flyweights:
+            self._flyweights[shared_data] = Flyweight(shared_data)
+        return self._flyweights[shared_data]
+
+
+if __name__ == '__main__':
+    factory = FlyweightFactory()
+    sedan = factory.get_flyweight(CarType.SEDAN)
+    suv = factory.get_flyweight(CarType.SUV)
+    sports_car = factory.get_flyweight(CarType.SPORTS_CAR)
+
+    print(sedan.operation("Червоний"))
+    print(suv.operation("Сірий"))
+    print(sports_car.operation("Синій"))
