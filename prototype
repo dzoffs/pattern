@@ -1,0 +1,30 @@
+import copy
+
+# Клас, який будемо клонувати
+class Prototype:
+    def __init__(self):
+        self._data = None
+
+    def clone(self):
+        # Використовуємо глибоке копіювання для створення нового об'єкта
+        return copy.deepcopy(self)
+
+    def set_data(self, data):
+        self._data = data
+
+    def get_data(self):
+        return self._data
+
+
+if __name__ == '__main__':
+    # Створюємо прототип
+    prototype = Prototype()
+
+    # Встановлюємо дані в прототипі
+    prototype.set_data("Деякі дані")
+
+    # Клонуємо прототип для створення нового об'єкта
+    new_object = prototype.clone()
+
+    # Перевіряємо дані нового об'єкта
+    print(new_object.get_data())  # Виведе "Деякі дані"
