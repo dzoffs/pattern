@@ -1,0 +1,25 @@
+# Клас з несумісним інтерфейсом
+class IncompatibleComponent:
+    def specific_method(self):
+        return "Цей метод не сумісний з іншими компонентами"
+
+# Інтерфейс, який очікує клієнт або інший компонент
+class TargetInterface:
+    def standard_method(self):
+        pass
+
+# Адаптер, який перетворює інтерфейс IncompatibleComponent на інтерфейс TargetInterface
+class Adapter(TargetInterface):
+    def __init__(self, adaptee):
+        self.adaptee = adaptee
+
+    def standard_method(self):
+        return f"Адаптер використовує {self.adaptee.specific_method()}"
+
+
+if __name__ == '__main__':
+    incompatible_component = IncompatibleComponent()
+    adapter = Adapter(incompatible_component)
+
+    result = adapter.standard_method()
+    print(result)
